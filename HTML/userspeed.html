@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>用户限速控制</title>
+    
+	<script type="text/javascript">
+       function Userspeed()
+	   {
+	     var url = "http://gwapi.helianhealth.com/ap_netLimit.htm?sn=";
+		
+		 var gwsn = document.getElementById('gwsn').value;
+	     if (gwsn.length != 12) {alert ("invalid SN");return;}
+		 url += gwsn;
+
+		 var user_mac = document.getElementById('user_mac').value;
+		 url += "&mac=";
+		 url += user_mac;
+		 
+		 var user_upspeed = document.getElementById('user_upspeed').value;
+		 url += "&up_speed=";
+		 url += user_upspeed;		 
+
+		 var user_downspeed = document.getElementById('user_downspeed').value;
+		 url += "&dw_speed=";
+		 url += user_downspeed;		 
+
+		 var user_timerange = document.getElementById('user_timerange').value;
+		 url += "&time_range=";
+		 url += user_timerange;		 
+		          
+		          
+ 	     window.open(url);
+	   }
+
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+
+	<style type="text/css">
+	</style>
+
+</head>
+
+<body>
+<br>
+<h1 align="center">用户限速控制</h1>
+<br>
+<br>
+<table align="center"><tr><th  align="center">
+	    <label for="male">网关SN</label>
+	    <input type="text" class="oaput2" name="gwsn" id="gwsn" />
+         <br>
+	    <label for="male">用户MAC</label>
+	    <input type="text" class="oaput2" name="user_mac" id="user_mac" value=""/>
+        <br>
+        	<label for="male">上行速度(KBps)</label>
+	    <input type="text" class="oaput2" name="user_upspeed" id="user_upspeed" value="500"/>
+	  <br>
+       <label for="male">下行速度(KBps)</label>
+	   <input type="text" class="oaput2" name="user_downspeed" id="user_downspeed" value="500"/>
+	  <br>
+       <label for="male">生效时长(分钟)</label>
+	   <input type="text" class="oaput2" name="user_timerange" id="user_timerange" value="1440"/>
+	  <br>
+
+    <tr><th>
+	     <input  style='font-size:24px' type="button"  value="下发" onclick="Userspeed();"  /> 
+   	</th></tr>
+    
+</th></tr></table>
+</body>
+</html>

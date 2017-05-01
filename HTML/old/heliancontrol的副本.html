@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>heliancontrol</title>
+	<script type="text/javascript">
+	
+		function trim(str) {
+			return str.replace(/(^\s*)|(\s*$)/g, '');
+		}
+
+		function createSn(){
+			var result = '';
+			
+			var ap_type = document.getElementById('ap_type').value;
+			if(ap_type=='1'){
+				result += '301';
+			}else if(ap_type=='2'){
+				result += '300';
+			}
+			
+			var param11 = document.getElementById('param1').value;
+			//var param2 = document.getElementById('param2').value;
+			//var param3 = document.getElementById('param3').value;
+			var flag = 2;
+		　　var count =0;
+		    param1 = param11.replace(/:/g,'');
+		　　for(var i=0,len=param1.length/flag;i<len;i++) {
+			str1 = param1.substr(0,flag);
+			param1 = param1.replace(str1,'');
+			if(trim(str1)!=''){
+			    var temp1 = parseInt(str1,16) + '';
+			    if(temp1.length==1){
+			    	result += '00' + temp1;
+			    }else if(temp1.length==2){
+			    	result += '0' + temp1;
+			    }else{
+			    	result += temp1;
+					//alert(result); //300+128
+			    }
+				//result += parseInt(param1,16);
+			}
+		　　//alert(str1+" "+param1+" "+len);
+		　　}
+			
+			/*
+			if(trim(param2)!=''){
+				var temp2 = parseInt(param2,16) + '';
+			    if(temp2.length==1){
+			    	result += '00' + temp2;
+			    }else if(temp2.length==2){
+			    	result += '0' + temp2;
+			    }else{
+			    	result += temp2;
+			    }
+				//result += parseInt(param2,16);
+			}
+			if(trim(param3)!=''){
+				var temp3 = parseInt(param3,16) + '';
+			    if(temp3.length==1){
+			    	result += '00' + temp3;
+			    }else if(temp3.length==2){
+			    	result += '0' + temp3;
+			    }else{
+			    	result += temp3;
+			    }
+				//result += parseInt(param3,16);
+			}
+			*/
+			document.getElementById('param3').value = result;
+			
+		}
+        function dec2hex( num ){
+          if( typeof num !== 'undefined' ) {
+		  r = Number(num).toString( 16 );
+          if (r.length == 1) r = '0' + r;
+		  return r;
+		  }
+       }
+	     function createMac ()
+	   {
+	     var mac = document.getElementById('param3').value;
+	     if (mac.length != 12) {alert ("invalid SN");return;}
+		 document.getElementById('param1').value = dec2hex( mac.substr(3, 3)) + ":" + dec2hex( mac.substr(6, 3)) + ":" + dec2hex( mac.substr(9, 3));
+	   }
+	 
+       function ConnectVPN(isopen)
+	   {
+	     var url = "http://gwapi.lianlianbox.com/ap_openVPN.htm?sn=";
+		
+		 var sn = document.getElementById('vpnsn').value;
+	     if (sn.length != 12) {alert ("invalid SN");return;}
+		 url += sn;
+		
+		 var vpn_server = document.getElementById('vpnaddr').value;
+	     if (vpn_server.length == 0) {alert ("invalid VPN Server");return;} 
+		 url += "&vpn_server=";
+		 url += vpn_server;
+		  
+		 var vpn_prot = document.getElementById('vpnprot').value;
+	     url += "&vpn_prot=";
+		 url += vpn_prot;  
+	
+		 var vpn_user = document.getElementById('vpnuser').value;
+	     if (vpn_user.length == 0) {alert ("invalid VPN User name");return;} 
+		 url += "&vpn_user=";
+		 url += vpn_user;
+		  
+		 var vpn_password = document.getElementById('vpnpwd').value;
+	     if (vpn_password.length == 0) {alert ("invalid VPN user password");return;} 
+		 url += "&vpn_password=";
+		 url += vpn_password;
+          
+		 url += (isopen == 1)?"&isopen=1":"&isopen=0";
+ 	     window.open(url);
+		
+	   }
+	
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+</head>
+
+<body>
+	<p>
+	    <label for="male"><U>MAC地址与SN转换</U></label><br><br>
+		<label for="male">选择设备类型：</label>
+		<select class="oaselt mr20" name="ap_type" id="ap_type">
+			<option value="2">普通盒子</option>
+			<option value="1" selected="1">网关</option>
+		</select><br/>
+
+		<label for="male">MAC地址后6位：</label>
+		<input type="text" class="oaput2" name="param1" id="param1" />
+		<!--<input type="text" class="oaput2" name="param2" id="param2"/>-->
+		 
+		<input type="button"  value="TO SN ->" onclick="createSn();"  />
+		<input type="button"  value="<- TO MAC" onclick="createMac();"  />
+		<input type="text" class="oaput2" name="param3" id="param3"/>
+		<label for="male">SN</label><br><br>
+		
+		<label for="male"><U>开启/关闭VPN连接</U></label><br><br>
+	    <label for="male">序列号(SN)</label>
+	    <input type="text" class="oaput2" name="vpnsn" id="vpnsn" />
+	    <label for="male">VPN 地址</label>
+	    <input type="text" class="oaput2" name="vpnaddr" id="vpnaddr" value="115.238.49.130"/><br>
+	    <label for="male">VPN 用户名</label>
+	    <input type="text" class="oaput2" name="vpnuser" id="vpnuser" value="lianlianbox"/><br>
+	    <label for="male">VPN 密&nbsp;&nbsp;码</label>
+	    <input type="text" class="oaput2" name="vpnpwd" id="vpnpwd" value="lianlianbox"/><br>
+	    <label for="male">VPN 协&nbsp;&nbsp;议</label>
+	    <select class="oaselt mr20" name="vpnprot" id="vpnprot">
+		<option value="l2tp" selected="1">L2TP</option>
+		<option value="pptp">PPTP</option>
+	     </select><br/>
+	     <input type="button"  value="连接" onclick="ConnectVPN(1);"  />
+	     <input type="button"  value="断开" onclick="ConnectVPN(0);"  />
+	</p>
+	<p>
+	 
+	</p>
+	<!--
+	<p>
+		<span class="spw90">结果：</span>
+		<code id="result"></code>
+	</p>
+	!-->
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>helianVPN</title>
+    
+	<script type="text/javascript">
+       function ConnectVPN(isopen)
+	   {
+	     var url = "http://gwapi.helianhealth.com/ap_openVPN.htm?sn=";
+		
+		 var sn = document.getElementById('vpnsn').value;
+	     if (sn.length != 12) {alert ("invalid SN");return;}
+		 url += sn;
+		
+		 var vpn_server = document.getElementById('vpnaddr').value;
+	     if (vpn_server.length == 0) {alert ("invalid VPN Server");return;} 
+		 url += "&vpn_server=";
+		 url += vpn_server;
+		  
+		 var vpn_prot = document.getElementById('vpnprot').value;
+	     url += "&vpn_prot=";
+		 url += vpn_prot;  
+	
+		 var vpn_user = document.getElementById('vpnuser').value;
+	     if (vpn_user.length == 0) {alert ("invalid VPN User name");return;} 
+		 url += "&vpn_user=";
+		 url += vpn_user;
+		  
+		 var vpn_password = document.getElementById('vpnpwd').value;
+	     if (vpn_password.length == 0) {alert ("invalid VPN user password");return;} 
+		 url += "&vpn_password=";
+		 url += vpn_password;
+          
+		 url += (isopen == 1)?"&isopen=1":"&isopen=0";
+ 	     window.open(url);
+	   }
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+
+	<style type="text/css">
+	</style>
+
+</head>
+
+<body>
+<br>
+<br>
+<br>
+<table align="center"><tr><th  align="left">
+	<p>
+	    <label for="male">网关SN</label>
+	    <input type="text" class="oaput2" name="vpnsn" id="vpnsn" />
+        <br>
+	    <label for="male">VPN IP地址</label>
+	    <input type="text" class="oaput2" name="vpnaddr" id="vpnaddr" value="115.238.49.130"/>
+        <br>
+	    <label for="male">VPN 用户名</label>
+	    <input type="text" class="oaput2" name="vpnuser" id="vpnuser" value="lianlianbox"/>
+        <br>
+	    <label for="male">VPN 密码 </label>
+	    <input type="text" class="oaput2" name="vpnpwd" id="vpnpwd" value="lianlianbox"/>
+        <br>
+	    <label for="male">VPN 协议</label>
+	    <select class="oaselt mr20" name="vpnprot" id="vpnprot">
+		<option value="l2tp" selected="1">L2TP</option>
+		<option value="pptp">PPTP</option>
+	     </select>
+         <br/>
+    <tr><th>
+             <br/>
+	     <input  style='font-size:24px' type="button"  value="连接" onclick="ConnectVPN(1);"  /> 
+	     <input  style='font-size:24px' type="button"  value="断开" onclick="ConnectVPN(0);"  />
+             <br/>
+	</p>
+   	</th></tr>
+</th></tr></table>
+</body>
+</html>

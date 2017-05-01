@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>用户上下线</title>
+    
+	<script type="text/javascript">
+       function Useron()
+	   {
+	     var url = "http://gwapi.lianlianbox.com/ap_open_net_all.htm?sn=";
+		
+		 var sn = document.getElementById('vpnsn').value;
+	     if (sn.length != 12) {alert ("invalid SN");return;}
+		 url += sn;
+
+		 var user_mac = document.getElementById('user_mac').value;
+		 url += "&mac=";
+		 url += user_mac;
+		          
+ 	     window.open(url);
+	   }
+	          function Useroff()
+	   {
+	     var url = "http://gwapi.lianlianbox.com/ap_close_net_all.htm?sn=";
+		
+		 var sn = document.getElementById('vpnsn').value;
+	     if (sn.length != 12) {alert ("invalid SN");return;}
+		 url += sn;
+
+		 var user_mac = document.getElementById('user_mac').value;
+		 url += "&mac=";
+		 url += user_mac;
+		          
+ 	     window.open(url);
+	   }
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+
+	<style type="text/css">
+	</style>
+
+</head>
+
+<body>
+<br>
+<h1 align="center">用户上下线开关</h1>
+<br>
+<br>
+<table align="center"><tr><th  align="center">
+	<p>
+	    <label for="male">网关SN</label>
+	    <input type="text" class="oaput2" name="vpnsn" id="vpnsn" />
+         <br>
+		<br>
+	    <label for="male">用户MAC</label>
+	    <input type="text" class="oaput2" name="user_mac" id="user_mac" value=""/>
+        <br>
+         <br/>
+    <tr><th>
+             <br/>
+	     <input  style='font-size:24px' type="button"  value="上线" onclick="Useron();"  /> 
+	     <input  style='font-size:24px' type="button"  value="下线" onclick="Useroff();"  />
+             <br/>
+	</p>
+   	</th></tr>
+</th></tr></table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>网关远程重启（只对寰创、敦崇生效）</title>
+    
+	<script type="text/javascript">
+       function Gwreboot()
+	   {
+	     var url = "http://gwapi.helianhealth.com/ap_sendOrderToApAll.htm?sn=";
+		
+		 var gwsn = document.getElementById('gwsn').value;
+	     if (gwsn.length != 12) {alert ("invalid SN");return;}
+		 url += gwsn;
+		 url += "&order=reboot%20&";
+		 
+	          
+ 	     window.open(url);
+	   }
+
+	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+
+	<style type="text/css">
+	</style>
+
+</head>
+
+<body>
+<br>
+<h1 align="center">网关远程重启（只对寰创、敦崇生效）</h1>
+<br>
+<br>
+<table align="center"><tr><th  align="center">
+	    <label for="male">网关SN</label>
+	    <input type="text" class="oaput2" name="gwsn" id="gwsn" />
+         <br>
+
+
+    <tr><th>
+	     <input  style='font-size:24px' type="button"  value="重启" onclick="Gwreboot();"  /> 
+   	</th></tr>
+    
+</th></tr></table>
+</body>
+</html>
