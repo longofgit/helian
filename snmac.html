@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>禾连工具</title>
+	<script type="text/javascript">	
+		function trim(str) {
+			return str.replace(/(^\s*)|(\s*$)/g, '');
+		}
+
+		function createSn(){
+			var result = '';		
+			var ap_type = document.getElementById('ap_type').value;
+			/*
+			switch(ap_type)
+			{
+			case 1:
+				result += '301';
+				break;
+			case 2:
+				result += '401';
+				break;
+			case 3:
+				result += '901';
+				break;
+			}
+			*/
+			if(ap_type=='1'){
+				result += '301';
+			}else if(ap_type=='2'){
+				result += '401';
+			}else if(ap_type=='3'){
+				result += '901';
+			}
+			
+			var param11 = document.getElementById('param1').value;
+			//var param2 = document.getElementById('param2').value;
+			//var param3 = document.getElementById('param3').value;
+			var flag = 2;
+		　　var count =0;
+		    param1 = param11.replace(/:/g,'');
+		　　for(var i=0,len=param1.length/flag;i<len;i++) {
+			str1 = param1.substr(0,flag);
+			param1 = param1.replace(str1,'');
+			if(trim(str1)!=''){
+			    var temp1 = parseInt(str1,16) + '';
+			    if(temp1.length==1){
+			    	result += '00' + temp1;
+			    }else if(temp1.length==2){
+			    	result += '0' + temp1;
+			    }else{
+			    	result += temp1;
+					//alert(result); //300+128
+			    }
+				//result += parseInt(param1,16);
+			}
+		　　//alert(str1+" "+param1+" "+len);
+		　　}
+			
+			/*
+			if(trim(param2)!=''){
+				var temp2 = parseInt(param2,16) + '';
+			    if(temp2.length==1){
+			    	result += '00' + temp2;
+			    }else if(temp2.length==2){
+			    	result += '0' + temp2;
+			    }else{
+			    	result += temp2;
+			    }
+				//result += parseInt(param2,16);
+			}
+			if(trim(param3)!=''){
+				var temp3 = parseInt(param3,16) + '';
+			    if(temp3.length==1){
+			    	result += '00' + temp3;
+			    }else if(temp3.length==2){
+			    	result += '0' + temp3;
+			    }else{
+			    	result += temp3;
+			    }
+				//result += parseInt(param3,16);
+			}
+			*/
+			document.getElementById('param3').value = result;	
+		}
+
+		
+        function dec2hex( num ){
+          if( typeof num !== 'undefined' ) {
+		  r = Number(num).toString( 16 );
+          if (r.length == 1) r = '0' + r;
+		  return r;
+		  }
+       }
+	   
+	     function createMac ()
+	   {
+		 var resultSn = '';	
+			var ap_type = document.getElementById('ap_type').value;
+			if(ap_type=='1'){
+				resultSn += '00:34:cb:';
+			}else if(ap_type=='2'){
+				resultSn += '58:69:6c:';
+			}else if(ap_type=='3'){
+				resultSn += '不确定的前6位+';
+			}
+	     var mac = document.getElementById('param2').value;
+	     if (mac.length != 12) {alert ("invalid SN 您的输入有误！");return;}
+		 resultSn += dec2hex( mac.substr(3, 3)) + ":" + dec2hex( mac.substr(6, 3)) + ":" + dec2hex( mac.substr(9, 3));
+		 document.getElementById('param4').value = resultSn;	
+	   }
+	 
+	</script>
+</head>
+
+<body>
+	<p>
+	    <label for="male">-=MAC与SN转换</label>
+工具=-</p>
+	<p>
+	  <br>
+	  <label for="male">选择设备类型：</label>
+	  <select class="oaselt mr20" name="ap_type" id="ap_type">
+	    <option value="3">敦崇网关</option>        
+	    <option value="2">锐捷网关</option>
+	    <option value="1" selected="1">寰创网关</option>
+	    </select><br/>
+	  
+	  <label for="male"><br>
+	    <br>
+	    请输入MAC地址（后6位）：</label><br>
+	  <input type="text" class="oaput2" name="param1" id="param1" />
+	  <input type="button"  value="TO SN ->" onclick="createSn();"  />
+	  <input type="text" class="oaput2" name="param3" id="param3"/><br>
+	  
+	  <label for="male"><br>
+	    请输入SN（12位）：</label><br>       
+	  <input type="text" class="oaput2" name="param2" id="param2" /> 
+	  <input type="button"  value="TO MAC ->" onclick="createMac();"  />
+	  <input type="text" class="oaput2" name="param4" id="param4"/><br>
+	  
+	  <br><br>
+	  
+</p>
+</body>
+</html>
